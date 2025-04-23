@@ -1,0 +1,79 @@
+/* 🖼 Напівпрозорий чорний фон */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 📦 Модальне вікно */
+.modal {
+    background: #1e1e1e;
+    /* Темний фон */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 188, 212, 0.6);
+    /* Бірюзове підсвічування */
+    border: 3px solid #00bcd4;
+    /* Бірюзова рамка */
+    position: relative;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 🖼 Зображення у модальному вікні */
+.image {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* ✨ Ефект при наведенні */
+.image:hover {
+    transform: scale(1.05);
+}
+
+/* 📝 Текст у модальному вікні */
+.modal p {
+    color: #ff4081;
+    /* Рожевий текст */
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* ❌ Кнопка закриття (під текстом) */
+.closeButton {
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: #ff4081;
+    /* Рожева кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1002;
+    display: block;
+}
+
+/* 🎨 Ефект при наведенні */
+.closeButton:hover {
+    background: #f50057;
+    transform: scale(1.05);
+}

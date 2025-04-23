@@ -10,3 +10,9 @@ export interface UnsplashImage {
   };
   likes: number;
 }
+
+export interface UnsplashResponse {
+  total: number;
+  total_pages: number;
+  results: UnsplashImage[];
+}

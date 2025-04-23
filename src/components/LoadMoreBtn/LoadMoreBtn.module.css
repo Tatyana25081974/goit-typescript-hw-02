@@ -1,0 +1,32 @@
+/* 🔘 Контейнер кнопки */
+.btnContainer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 📥 Кнопка "Load More" */
+.loadMoreButton {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #00bcd4;
+    /* Бірюзовий фон */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 188, 212, 0.3);
+    /* Бірюзова тінь */
+}
+
+/* 🎨 Ефект при наведенні */
+.loadMoreButton:hover {
+    background-color: #008ba3;
+    /* Темніший бірюзовий */
+    transform: scale(1.05);
+}
+
+/* 🔄 Ефект при натисканні */
+.loadMoreButton:active {
+    transform: scale(0.95);
+}
