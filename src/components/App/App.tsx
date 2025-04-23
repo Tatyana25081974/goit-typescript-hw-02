@@ -1,35 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
+import { fetchImages } from "./api/unsplashApi";
+import toast, { Toaster } from "react-hot-toast";
+import { UnsplashImage } from "../../types/unsplash";
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const App: React.FC= () => {
+  const [query, setQuery] = useState<string>(""); 
+  const [images, setImages] = useState<UnsplashImage[]>([]); 
+  const [page, setPage] = useState<number>(1); 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null); 
+  const [totalPages, setTotalPages] = useState<number>(1);
+
+  const handleSearch = (searchQuery: string): void => {
+    const trimmedQuery = searchQuery.trim(); 
+
+    if (trimmedQuery === query) {
+      toast("Цей запит уже виконано!");
+      return;
+    }
+
+    setQuery(trimmedQuery);
+    setImages([]); 
+    setPage(1);
+    setError(null);
+  };
+
+  useEffect(() => {
+    if (!query) return;
+
+    const getImages = async ():Promise<void> => {
+      setLoading(true); //Показує спінер 
+      setError(null);
+
+      try {
+        const data = await fetchImages(query, page); //Отримує зображення з Unsplash  
+
+        if (!data.results.length) {     //Якщо нема результатів — показує повідомлення
+          setError("Зображень не знайдено!");
+          setImages([]);  //очищає зображення
+          setTotalPages(1); 
+          return;
+        }
+
+        setImages((prev) => [...prev, ...data.results]);
+        setTotalPages(Math.ceil(data.total / 20)); //Підраховує, скільки ще сторінок можна завантажити 
+      } catch {
+        setError("Помилка завантаження зображень.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getImages();
+  }, [query, page]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Toaster />
+      <SearchBar onSubmit={handleSearch} />
+      
+      {error && <ErrorMessage message={error} />}
 
-export default App
+      <ImageGallery images={images} onImageClick={setSelectedImage} />
+
+      {loading && <Loader />}
+
+      {images.length > 0 && !loading && page < totalPages && (
+        <LoadMoreBtn onClick={() => setPage((prev) => prev + 1)} />
+      )}
+
+      <ImageModal 
+        image={selectedImage} 
+        isOpen={Boolean(selectedImage)} 
+        onClose={() => setSelectedImage(null)} 
+      />
+    </div>
+  );
+};
+
+export default App;

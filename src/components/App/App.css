@@ -1,3 +1,14 @@
+/* 🌑 Темний фон для всієї сторінки */
+body {
+    background-color: #121212;
+    /* Темно-сірий фон */
+    color: #ff4081;
+    /* Рожевий текст */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 🔹 Основний контейнер */
 #root {
     max-width: 1280px;
     margin: 0 auto;
@@ -5,6 +16,7 @@
     text-align: center;
 }
 
+/* 📌 Логотип */
 .logo {
     height: 6em;
     padding: 1.5em;
@@ -12,14 +24,18 @@
     transition: filter 300ms;
 }
 
+/* 🎨 Ефект для логотипу */
 .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #00bcd4aa);
+    /* Бірюзова підсвітка */
 }
 
 .logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+    filter: drop-shadow(0 0 2em #00e5ffaa);
+    /* Яскраво-бірюзова підсвітка */
 }
 
+/* 🔄 Анімація логотипу */
 @keyframes logo-spin {
     from {
         transform: rotate(0deg);
@@ -30,16 +46,33 @@
     }
 }
 
+/* 🔄 Анімація для логотипу при активному стані */
 @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo {
         animation: logo-spin infinite 20s linear;
     }
 }
 
+/* 🖼 Карточка */
 .card {
     padding: 2em;
+    background: #1e1e1e;
+    /* Темний фон картки */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 188, 212, 0.3);
+    /* Бірюзова тінь */
 }
 
+/* 📖 Текст документації */
 .read-the-docs {
-    color: #888;
+    color: #00bcd4;
+    /* Бірюзовий текст */
+}
+
+h1,
+h2,
+h3,
+p {
+    color: #ff4081;
+    /* Рожевий колір тексту */
 }
